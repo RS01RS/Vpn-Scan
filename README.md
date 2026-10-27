@@ -12,14 +12,6 @@
 
 </div>
 
-<table>
-<tr>
-<td><img src="screenshots/vs-01-home.png" width="200"></td>
-<td><img src="screenshots/vs-03-results.png" width="200"></td>
-<td><img src="screenshots/vs-04-server-list.png" width="200"></td>
-<td><img src="screenshots/vs-12-light-results.png" width="200"></td>
-</tr>
-</table>
 
 ---
 
