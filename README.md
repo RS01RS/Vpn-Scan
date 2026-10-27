@@ -1,6 +1,4 @@
-<div align="center">
 
-<img src="screenshots/icon.png" width="96" alt="VPN Scan">
 
 # VPN Scan
 
@@ -42,9 +40,6 @@
 - [IP تمیز کلودفلر](#ip-تمیز-کلودفلر)
 - [کانفیگ‌های دستی و نت ملی](#کانفیگهای-دستی-و-نت-ملی)
 - [لاگ برنامه و دلیل ردها](#لاگ-برنامه-و-دلیل-ردها)
-- [تصاویر](#تصاویر)
-- [ساخت از سورس](#ساخت-از-سورس)
-- [ساختار پروژه](#ساختار-پروژه)
 - [مجوزها و حریم خصوصی](#مجوزها-و-حریم-خصوصی)
 - [سؤال‌های رایج](#سؤالهای-رایج)
 - [اعتبارها و مجوز کتابخانه‌ها](#اعتبارها-و-مجوز-کتابخانهها)
@@ -183,71 +178,13 @@ packets: tlshello · length: 10-20 · interval: 10-20
 | کندتر از حد | سالم، ولی تأخیرش از حد انتخابی بیشتر است |
 | سالم با IP تمیز / سالم با فرگمنت | فقط با IP تمیز یا فرگمنت سالم شد |
 
-### تصاویر
-
-| | | |
-|---|---|---|
-| <img src="screenshots/vs-01-home.png" width="230"><br>صفحهٔ اصلی و وضعیت اینترنت | <img src="screenshots/vs-02-protocols-cores.png" width="230"><br>پروتکل‌ها و هسته‌ها | <img src="screenshots/vs-03-results.png" width="230"><br>نتیجه و چهار دکمهٔ افزودن |
-| <img src="screenshots/vs-04-server-list.png" width="230"><br>لیست با پرچم، هسته‌ها و سایت‌ها | <img src="screenshots/vs-05-server-details.png" width="230"><br>جزئیات سرور و QR | <img src="screenshots/vs-06-subscription.png" width="230"><br>خروجی ساب |
-| <img src="screenshots/vs-07-settings.png" width="230"><br>تنظیمات | <img src="screenshots/vs-08-clean-ip.png" width="230"><br>IP تمیز کلودفلر | <img src="screenshots/vs-09-manual-configs.png" width="230"><br>کانفیگ دستی و منابع |
-| <img src="screenshots/vs-10-menu.png" width="230"><br>منو و تم | <img src="screenshots/vs-11-app-log.png" width="230"><br>لاگ برنامه | <img src="screenshots/vs-12-light-results.png" width="230"><br>تم روشن |
-| <img src="screenshots/vs-12-light-home.png" width="230"><br>تم روشن، صفحهٔ اصلی | <img src="screenshots/vs-13-english-home.png" width="230"><br>English | <img src="screenshots/vs-13-english-results.png" width="230"><br>English، نتیجه |
-
-### ساخت از سورس
-
-APK با **GitHub Actions** ساخته می‌شود (فایل `.github/workflows/build.yml`):
-1. فایل `vpn-scan-src.zip` را در مخزن آپلود کن. اگر این فایل در مخزن نباشد، پوشهٔ `source/` ساخته می‌شود (کد همان است، فقط باز شده تا روی گیت‌هاب خوانده شود).
-2. Actions سورس را باز می‌کند، با Java 17 و Gradle 8.9 بیلد می‌گیرد و هسته‌ها را خودکار دانلود می‌کند:
-   - `libv2ray.aar` نسخهٔ v26.10.21 از AndroidLibXrayLite (Xray 26)
-   - Xray v25.10.15 اندروید arm64 → `jniLibs/arm64-v8a/libxray25.so`
-   - sing-box 1.14.4 اندروید arm64 → `jniLibs/arm64-v8a/libsingbox.so`
-3. بعد از تیک سبز، `VPN-Scan.apk` در Releases منتشر می‌شود. شمارهٔ نسخه `1.{شمارهٔ اجرا}` است.
-
-ساخت روی کامپیوتر: Android SDK 34 و JDK 17 را نصب کن، داخل پوشهٔ سورس `gradle assembleDebug` را اجرا کن. خروجی: `app/build/outputs/apk/debug/app-debug.apk`.
-
-> نکتهٔ امنیتی: کلید امضا (`rs-key.jks`) و رمزش داخل سورس است تا نسخه‌های جدید روی قبلی نصب شوند. چون مخزن عمومی است، هر کسی می‌تواند APK با همین امضا بسازد. اگر می‌خواهی فقط خودت بتوانی نسخهٔ رسمی بدهی، کلید را در GitHub Secrets نگه دار.
-
-### ساختار پروژه
-
-```
-source/
-├── build.gradle · settings.gradle · gradle.properties
-└── app/
-    ├── build.gradle            ← دانلود هسته‌ها، امضا، شمارهٔ نسخه
-    ├── rs-key.jks              ← کلید امضا
-    └── src/main/
-        ├── AndroidManifest.xml
-        ├── java/com/rs/v2ray/MainActivity.java   ← WebView + پل اندروید
-        ├── assets/index.html   ← کل رابط کاربری و منطق اسکن
-        ├── assets/geo4.bin     ← بانک IP به کشور
-        └── res/mipmap-*/       ← آیکون
-```
-
-**MainActivity.java** (پل `window.RSNative`):
-| متد | کار |
-|---|---|
-| `v2test` | تست واقعی با Xray 26 (libv2ray `measureOutboundDelay`) |
-| `v2proc` | تست با Xray 25 یا sing-box (اجرای هسته با ورودی HTTP محلی و دو درخواست) |
-| `v2sites` | تست باز شدن سایت‌ها از داخل کانفیگ |
-| `v2ping` · `v2resolve` | پینگ TCP و DNS گوشی |
-| `v2cert` | گرفتن گواهی TLS/QUIC برای پین |
-| `cfprobe` | تست IP تمیز کلودفلر |
-| `v2geo` | کشور از روی IP |
-| `subSet` · `subPort` | سرور ساب داخلی روی 127.0.0.1 |
-| `v2import` | فرستادن به v2rayNG / V2Box / Hiddify / NPV |
-| `v2cores` | نسخهٔ هسته‌ها |
-| `fetch` · `fetchPart` | دریافت منابع (بخش اول فایل‌ها) |
-| `startUpdate` · `installUpdate` | به‌روزرسانی داخل برنامه |
-| `setTheme` · `sysDark` | رنگ نوار وضعیت و تم خودکار |
-
-**index.html**: پایهٔ صفحه، لاگ، وضعیت اینترنت، QR، منطق V2Ray (منابع، پارس، ساخت کانفیگ برای هر هسته، تست، IP تمیز، فرگمنت، ساب، تم)، منو و ترجمهٔ English.
 
 ### مجوزها و حریم خصوصی
 
 - `INTERNET`: دریافت منابع و تست سرورها.
 - `REQUEST_INSTALL_PACKAGES`: فقط برای نصب نسخهٔ جدید از داخل برنامه.
 - برنامه هیچ اطلاعاتی برای سازنده نمی‌فرستد. برای وضعیت اینترنت از `ipwho.is` / `ipapi.co` و برای سرعت از `speed.cloudflare.com` استفاده می‌شود. تنظیمات، نتیجه‌ها و لاگ فقط روی گوشی ذخیره می‌شوند.
-- سرور ساب داخلی فقط روی `127.0.0.1` باز است و از بیرون گوشی در دسترس نیست.
+- سرور ساب داخلی فقط روی `127.0.0.1` باز است و از بیرون گوشی در دسترس نیست
 - کانفیگ‌ها مال افراد دیگرند؛ اطلاعات حساس را با احتیاط بفرست.
 
 ### سؤال‌های رایج
