@@ -1,42 +1,149 @@
-# 🛡 VPN Scan
+# VPN Scan
 
-**📥 دانلود / Download:**
-https://github.com/RS01RS/Vpn-Scan/releases/latest/download/VPN-Scan.apk
+**[فارسی](#فارسی) · [English](#english)**
 
 ---
 
 ## فارسی
 
-ساخته شده توسط **(R.S)**
+**VPN Scan** کانفیگ‌های رایگان V2Ray را از بیش از ۱۰۰ منبع جمع می‌کند. بعد آن‌ها را با **هستهٔ واقعی** همان برنامه‌ای که استفاده می‌کنی تست می‌کند. سرورهای سالم را با یک دکمه به **v2rayNG**، **V2Box**، **Hiddify** یا **NPV Tunnel** می‌فرستد.
 
-**VPN Scan** سرورهای V2Ray را از منابع عمومی جمع می‌کند، هر کدام را با هستهٔ واقعی Xray تست می‌کند (مثل Real delay در v2rayNG) و فقط سرورهای سالم را با تأخیرشان نشان می‌دهد.
+### 📥 دانلود
+آخرین نسخه را از بخش [Releases](../../releases/latest) دانلود کن (فایل `VPN-Scan.apk`).
+اندروید ۸ به بالا لازم است. هسته‌های Xray 25 و sing-box فقط روی گوشی‌های ۶۴ بیتی کار می‌کنند، یعنی تقریباً همهٔ گوشی‌های امروزی.
 
-- پشتیبانی از همهٔ پروتکل‌ها: VLESS (REALITY / Vision)، VMess، Trojan، Shadowsocks، Hysteria2، SOCKS، WireGuard
-- افزودن همهٔ سرورهای سالم به **v2rayNG** و **V2Box** با یک دکمه
-- کپی، اشتراک‌گذاری، QR، فایل TXT و لینک ساب Base64
-- ساب‌لینک و کانفیگ دلخواه برای موقع قطعی
-- بروزرسانی از داخل برنامه، فارسی و انگلیسی
+### ✨ امکانات
 
-**نصب:** فایل APK را دانلود و نصب کن. اندروید ۸ به بالا.
-**استفاده:** پروتکل‌ها را انتخاب کن ← «شروع اسکن V2Ray» ← «همه به v2rayNG» یا «همه به V2Box».
-در V2Box لینک‌ها کپی می‌شوند؛ آن‌جا **+ ← Import from clipboard** را بزن.
+**🧪 تست با سه هسته**
+
+| هسته | نسخه | برای برنامهٔ |
+|---|---|---|
+| Xray | 26.10.21 | v2rayNG · V2Box |
+| Xray | 25.10.15 | NPV Tunnel |
+| sing-box | 1.14.4 | Hiddify |
+
+- یکی، چندتا یا هر سه هسته را می‌شود انتخاب کرد (گزینهٔ «همه»).
+- زیر هر سرور معلوم است با کدام برنامه سالم بوده: ✓ سالم، خط‌خورده یعنی وصل نشد، «—» یعنی آن هسته این نوع کانفیگ را پشتیبانی نمی‌کند.
+- تست واقعی است: دو درخواست واقعی از داخل خود کانفیگ فرستاده می‌شود، نه فقط پینگ.
+
+**➕ افزودن به برنامه‌ها**
+- چهار دکمه: v2rayNG، V2Box، Hiddify و NPV Tunnel.
+- هر دکمه فقط سرورهایی را می‌فرستد که با هستهٔ همان برنامه سالم بوده‌اند. تعدادشان روی دکمه نوشته شده.
+- v2rayNG کانفیگ‌ها را مستقیم می‌گیرد. برای بقیه، لینک‌ها کپی می‌شوند و برنامه باز می‌شود؛ آنجا «افزودن از کلیپ‌بورد» را بزن.
+- نام سرورهای سالم به شکل R.S 1، R.S 2 و … شماره‌گذاری می‌شود.
+
+**🌐 پروتکل‌ها**
+VLESS (با REALITY و Vision) · VMess · Trojan · Shadowsocks · Hysteria2 · Hysteria · TUIC · AnyTLS · WireGuard · SOCKS
+
+**📡 وضعیت اینترنت و حالت‌های اسکن**
+- برنامه اپراتور، IP، موقعیت، پینگ و سرعت اینترنت را نشان می‌دهد.
+- اسکن متناسب با وضعیت نت انجام می‌شود:
+  - **خودکار**
+  - **نت ملی:** فقط سرورهای داخل ایران.
+  - **نت ضعیف**
+  - **نت خوب**
+
+**☁️ IP تمیز کلودفلر**
+- اگر IP کانفیگی که پشت کلودفلر است فیلتر باشد، برنامه با IP تمیز دوباره تستش می‌کند و لینک را با همان IP می‌سازد.
+- IP تمیز را خود برنامه پیدا می‌کند. فهرست IP خودت را هم می‌توانی بدهی، با چسباندن متن یا فایل TXT.
+
+**⚙️ تنظیمات**
+- تعداد سرور سالم: ۱۰، ۳۰، ۵۰ یا ۱۰۰.
+- حداکثر تأخیر: زیر ۵۰۰ تا زیر ۵۰۰۰ میلی‌ثانیه.
+- تعداد تست هم‌زمان.
+- پینگ سریع TCP برای کنار گذاشتن سرورهای خاموش.
+- منابع عمومی.
+- دکمهٔ بازگشت به تنظیمات پیش‌فرض.
+
+**🔁 و بیشتر**
+- تست دوبارهٔ سالم‌ها و حذف سرورهای قطع‌شده.
+- QR کد، کپی، اشتراک‌گذاری و ذخیرهٔ لیست.
+- لاگ برنامه با دلیل رد شدن کانفیگ‌ها، جدا برای هر هسته.
+- به‌روزرسانی از داخل برنامه با نوار پیشرفت.
+- دو زبانهٔ فارسی و English.
+
+### 📖 روش استفاده
+۱. برنامه را باز کن و صبر کن وضعیت اینترنت مشخص شود.
+۲. هسته‌ها و پروتکل‌ها را انتخاب کن. برای سرعت بیشتر، فقط هستهٔ برنامه‌ای را که استفاده می‌کنی بزن.
+۳. **شروع اسکن V2Ray** را بزن.
+۴. در پایان، دکمهٔ برنامه‌ات را بزن، مثلاً «➕ Hiddify».
+
+### ⚠️ نکته‌ها
+- کانفیگ‌ها از منابع عمومی‌اند و هر لحظه ممکن است قطع شوند. هر چند وقت یک‌بار «تست دوباره» بزن.
+- با «همه» هر کانفیگ با سه هسته تست می‌شود، پس اسکن کندتر است.
+- VLESS و Trojan بدون TLS در هستهٔ جدید Xray (و v2rayNG جدید) کار نمی‌کنند. ولی با NPV Tunnel و Hiddify ممکن است کار کنند.
 
 ---
 
 ## English
 
-**VPN Scan** collects V2Ray servers from public sources, tests each one with the real Xray core (like “Real delay” in v2rayNG) and shows only the working servers with their delay.
+**VPN Scan** collects free V2Ray configs from 100+ sources. It tests each one with the **real core** used by your VPN app. Working servers go to **v2rayNG**, **V2Box**, **Hiddify** or **NPV Tunnel** with one tap.
 
-- All protocols: VLESS (REALITY / Vision), VMess, Trojan, Shadowsocks, Hysteria2, SOCKS, WireGuard
-- Add all working servers to **v2rayNG** and **V2Box** with one tap
-- Copy, share, QR code, TXT file and Base64 subscription
-- Your own subscription links and configs for shutdowns
-- In-app updates, Persian and English
+### 📥 Download
+Get the latest `VPN-Scan.apk` from [Releases](../../releases/latest).
+Requires Android 8+. The Xray 25 and sing-box cores run only on 64-bit phones, which covers almost every modern phone.
 
-**Install:** download the APK and install it. Android 8+.
-**Use:** pick protocols → “Start V2Ray scan” → “All to v2rayNG” or “All to V2Box”.
-For V2Box the links are copied; tap **+ → Import from clipboard** there.
+### ✨ Features
+
+**🧪 Tests with three cores**
+
+| Core | Version | Used by |
+|---|---|---|
+| Xray | 26.10.21 | v2rayNG · V2Box |
+| Xray | 25.10.15 | NPV Tunnel |
+| sing-box | 1.14.4 | Hiddify |
+
+- Pick one core, several, or **All**.
+- Each server shows which apps it works in: ✓ works, struck through = failed, "—" = that core doesn't support this config type.
+- Each test sends two real requests through the config itself, not just a ping.
+
+**➕ Add to your app**
+- Four buttons: v2rayNG, V2Box, Hiddify and NPV Tunnel.
+- Each button sends only the servers that passed that app's core, and shows how many there are.
+- v2rayNG imports the configs directly. For the other apps, the links are copied and the app opens; tap "Add from clipboard" there.
+- Working servers are numbered R.S 1, R.S 2, …
+
+**🌐 Protocols**
+VLESS (incl. REALITY & Vision) · VMess · Trojan · Shadowsocks · Hysteria2 · Hysteria · TUIC · AnyTLS · WireGuard · SOCKS
+
+**📡 Network status & scan modes**
+- The app shows your operator, IP, location, ping and speed.
+- The scan adapts to your network:
+  - **Auto**
+  - **National network:** Iranian servers only.
+  - **Weak**
+  - **Good**
+
+**☁️ Clean Cloudflare IPs**
+- If a Cloudflare-fronted config's IP is filtered, the app retests it through a clean IP and rewrites the link to use that IP.
+- The app finds clean IPs automatically. You can also give it your own list, by pasting it or loading a TXT file.
+
+**⚙️ Settings**
+- Number of working servers: 10, 30, 50 or 100.
+- Maximum delay: under 500 to under 5000 ms.
+- Number of concurrent tests.
+- Fast TCP pre-check to skip dead servers.
+- Public sources.
+- One-tap reset to defaults.
+
+**🔁 More**
+- Retest working servers and drop the dead ones.
+- QR code, copy, share and save the list.
+- App log with the reasons configs were rejected, per core.
+- In-app updates with a progress bar.
+- Persian and English.
+
+### 📖 How to use
+1. Open the app and wait for the network status to load.
+2. Choose cores and protocols. For a faster scan, select only your app's core.
+3. Tap **Start V2Ray scan**.
+4. When it finishes, tap your app's button, e.g. "➕ Hiddify".
+
+### ⚠️ Notes
+- Configs come from public sources and can stop working at any time. Use "Retest" now and then.
+- Testing with **All** cores is slower, because each config is tested three times.
+- VLESS/Trojan configs without TLS don't work in the new Xray core (or recent v2rayNG). They may still work in NPV Tunnel and Hiddify.
 
 ---
 
-Made by **Reza (R.S)**# Vpn-Scan
+Made by **R.S** · [RS01RS](https://github.com/RS01RS)
