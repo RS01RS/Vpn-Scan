@@ -59,7 +59,14 @@ jobs:
           cp "$SRC/app/build/outputs/bundle/playRelease/app-play-release.aab" VPN-Scan-play.aab
           rm -rf "$SRC"
           gh release create "v${{ github.run_number }}" \
-            VPN-Scan-universal.apk VPN-Scan-arm64.apk VPN-Scan-arm32.apk VPN-Scan-play.aab \
+            VPN-Scan-universal.apk VPN-Scan-arm64.apk VPN-Scan-arm32.apk \
             --title "VPN Scan v${{ github.run_number }}" \
-            --notes "Made by (R.S) · اگر نمی‌دانی گوشی‌ات چیست، VPN-Scan-universal.apk را دانلود و نصب کن (روی همهٔ گوشی‌ها کار می‌کند). گوشی‌های جدید: VPN-Scan-arm64.apk (کوچک‌تر) · گوشی‌های قدیمی ۳۲ بیتی: VPN-Scan-arm32.apk · فایل VPN-Scan-play.aab برای آپلود در گوگل پلی است." \
+            --notes "Made by (R.S) · اگر نمی‌دانی گوشی‌ات چیست، VPN-Scan-universal.apk را دانلود و نصب کن (روی همهٔ گوشی‌ها کار می‌کند). گوشی‌های جدید: VPN-Scan-arm64.apk (کوچک‌تر) · گوشی‌های قدیمی ۳۲ بیتی: VPN-Scan-arm32.apk" \
             --repo "${{ github.repository }}"
+
+      - name: Upload AAB (owner only, not public)
+        uses: actions/upload-artifact@v4
+        with:
+          name: VPN-Scan-play-aab
+          path: VPN-Scan-play.aab
+          retention-days: 90
