@@ -1,10 +1,10 @@
-name: Build VPN Scan APK
+name: Build VPN Scan
 
 on:
   push:
-    paths-ignore:
-      - 'README.md'
-      - 'screenshots/**'
+    paths:
+      - 'vpn-scan-src.zip'
+      - '.github/workflows/build.yml'
   workflow_dispatch:
 
 permissions:
@@ -18,13 +18,9 @@ jobs:
 
       - name: Unpack source
         run: |
-          mkdir -p src
-          if [ -f vpn-scan-src.zip ]; then
-            unzip -o -q vpn-scan-src.zip -d src
-          else
-            cp -r source/. src/
-          fi
-          ls -R src | head -40
+          mkdir -p "$RUNNER_TEMP/src"
+          unzip -o -q vpn-scan-src.zip -d "$RUNNER_TEMP/src"
+          echo "SRC=$RUNNER_TEMP/src" >> "$GITHUB_ENV"
 
       - uses: actions/setup-java@v4
         with:
@@ -35,28 +31,23 @@ jobs:
         with:
           gradle-version: '8.9'
 
-      # Go برای ساخت موتورهای تونل DNS (MasterDNS، StormDNS، CottenDNS، Soar) از سورس اصلی‌شان
+      # Go برای ساخت موتورهای تونل DNS و thefeed از سورس اصلی‌شان
       - uses: actions/setup-go@v5
         with:
           go-version: '1.26'
           cache: false
 
-      # هستهٔ Xray (libv2ray.aar) را خود gradle موقع بیلد دانلود می‌کند
-      - name: Build APK
-        working-directory: src
-        run: gradle assembleDebug --no-daemon --stacktrace
+      # نسخهٔ github = APK برای نصب مستقیم · نسخهٔ play = AAB برای گوگل پلی (هر دو با کد مبهم R8)
+      - name: Build (obfuscated release)
+        run: cd "$SRC" && gradle assembleGithubRelease bundlePlayRelease --no-daemon --stacktrace
 
       - name: Publish release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          cp src/app/build/outputs/apk/debug/app-debug.apk VPN-Scan.apk
-          gh release create "v${{ github.run_number }}" VPN-Scan.apk \
+          cp "$SRC/app/build/outputs/apk/github/release/app-github-release.apk" VPN-Scan.apk
+          cp "$SRC/app/build/outputs/bundle/playRelease/app-play-release.aab" VPN-Scan-play.aab
+          gh release create "v${{ github.run_number }}" VPN-Scan.apk VPN-Scan-play.aab \
             --title "VPN Scan v${{ github.run_number }}" \
-            --notes "Made by Reza (R.S) - download VPN-Scan.apk and install." \
+            --notes "Made by Reza (R.S) · فایل VPN-Scan.apk را دانلود و نصب کن. فایل VPN-Scan-play.aab برای گوگل پلی است." \
             --repo "${{ github.repository }}"
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: VPN-Scan-apk
-          path: VPN-Scan.apk
